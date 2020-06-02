@@ -3,7 +3,7 @@ package client
 import (
 	"bytes"
 	"encoding/json"
-	"github.com/ProjectReferral/Get-me-in/queueing-api/client/models"
+	"github.com/Get-me-in/queueing-api/client/models"
 	"github.com/gorilla/mux"
 	"io/ioutil"
 	"log"

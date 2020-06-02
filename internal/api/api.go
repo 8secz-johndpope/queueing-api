@@ -3,9 +3,9 @@ package api
 import (
 	"encoding/json"
 	"net/http"
-	"github.com/ProjectReferral/Get-me-in/queueing-api/configs"
-	events "github.com/ProjectReferral/Get-me-in/queueing-api/internal/event-driven"
-	"github.com/ProjectReferral/Get-me-in/queueing-api/client/models"
+	"github.com/Get-me-in/queueing-api/configs"
+	events "github.com/Get-me-in/queueing-api/internal/event-driven"
+	"github.com/Get-me-in/queueing-api/client/models"
 	"os"
 	"log"
 )

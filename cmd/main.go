@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/Get-me-in/queueing-api/internal/api"
+	"gitlab.com/projectreferral/queueing-api/internal/api"
 	"log"
 	"os"
 )

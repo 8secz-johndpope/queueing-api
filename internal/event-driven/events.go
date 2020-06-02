@@ -1,9 +1,9 @@
 package event_driven
 
 import (
-	"github.com/Get-me-in/queueing-api/configs"
-	"github.com/Get-me-in/queueing-api/client/models"
-	"github.com/Get-me-in/external/util"
+	"gitlab.com/projectreferral/queueing-api/configs"
+	"gitlab.com/projectreferral/queueing-api/client/models"
+	"gitlab.com/projectreferral/util/util"
 	"github.com/streadway/amqp"
 	"log"
 	"encoding/json"

@@ -1,7 +1,7 @@
 package api
 
 import (
-	"github.com/Get-me-in/queueing-api/configs"
+	"gitlab.com/projectreferral/queueing-api/configs"
 	"github.com/gorilla/mux"
 	"net/http"
 	"log"

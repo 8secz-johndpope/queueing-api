@@ -1,4 +1,4 @@
-module github.com/Get-me-in/queueing-api
+module gitlab.com/projectreferral/queueing-api
 
 go 1.13
 

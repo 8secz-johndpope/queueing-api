@@ -3,7 +3,7 @@ package client
 import (
 	"bytes"
 	"encoding/json"
-	"gitlab.com/projectreferral/queueing-api/client/models"
+	"gitlab.com/projectreferral/util/client/models"
 	"github.com/gorilla/mux"
 	"io/ioutil"
 	"log"

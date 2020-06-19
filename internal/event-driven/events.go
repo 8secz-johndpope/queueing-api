@@ -2,7 +2,7 @@ package event_driven
 
 import (
 	"gitlab.com/projectreferral/queueing-api/configs"
-	"gitlab.com/projectreferral/queueing-api/client/models"
+	"gitlab.com/projectreferral/util/client/models"
 	"gitlab.com/projectreferral/util/util"
 	"github.com/streadway/amqp"
 	"log"

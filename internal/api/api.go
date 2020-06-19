@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"gitlab.com/projectreferral/queueing-api/configs"
 	events "gitlab.com/projectreferral/queueing-api/internal/event-driven"
-	"gitlab.com/projectreferral/queueing-api/client/models"
+	"gitlab.com/projectreferral/util/client/models"
 	"os"
 	"log"
 )

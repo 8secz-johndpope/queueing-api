@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"github.com/gorilla/mux"
 	"gitlab.com/projectreferral/queueing-api/client/models"
+	"gitlab.com/projectreferral/util/client/models"
 	"io/ioutil"
 	"log"
 	"net/http"

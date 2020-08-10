@@ -1,10 +1,10 @@
 package api
 
 import (
-	"gitlab.com/projectreferral/queueing-api/configs"
 	"github.com/gorilla/mux"
-	"net/http"
+	"gitlab.com/projectreferral/queueing-api/configs"
 	"log"
+	"net/http"
 )
 
 func wrapHandlerWithBodyCheck(handler http.HandlerFunc) http.HandlerFunc {

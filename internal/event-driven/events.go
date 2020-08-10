@@ -1,23 +1,24 @@
 package event_driven
 
 import (
-	"gitlab.com/projectreferral/queueing-api/configs"
-	"gitlab.com/projectreferral/util/client/models"
-	"gitlab.com/projectreferral/util/util"
-	"github.com/streadway/amqp"
-	"log"
-	"encoding/json"
-	"strings"
-	"strconv"
-	"net/http"
-	"time"
 	"bytes"
+	"crypto/rand"
+	"encoding/json"
+	"fmt"
+	"github.com/streadway/amqp"
+	"gitlab.com/projectreferral/queueing-api/client/models"
+	"gitlab.com/projectreferral/queueing-api/configs"
+	"log"
+	"net/http"
 	"os"
+	"strconv"
+	"strings"
+	"time"
 )
 
-var consumers    = map[string](chan bool){}
-var messages     = map[string](map[uint64](uint64)){}
-var connections  = map[string](*subscriber){}
+var consumers    = map[string]chan bool{}
+var messages     = map[string]map[uint64]uint64{}
+var connections  = map[string]*subscriber{}
 
 type subscriber struct {
 	Channel    *amqp.Channel  `json:"channel"`
@@ -281,7 +282,7 @@ func checkMessage(w http.ResponseWriter, ch *amqp.Channel, message models.Subscr
 
 func subscribeInit(w http.ResponseWriter, msgs <-chan amqp.Delivery, url string,
 	maxRetry int, timeout time.Duration, ch *amqp.Channel, conn *amqp.Connection) {
-		id,err := util.NewUUID()
+		id,err := newUUID()
 		log.Println(id)
 		subscribe := models.QueueSubscribeId {
 				ID: id,
@@ -344,7 +345,7 @@ func send(id string, msg amqp.Delivery, url string, timeout time.Duration, retry
 		Timeout: timeout,
 	}
 	buffer := bytes.NewBuffer(message)
-	if(consumers[id] == nil){
+	if consumers[id] == nil {
 		return // last minute unsubscribe check
 	}
 	resp,errP := client.Post(url,"application/json",buffer)
@@ -436,8 +437,8 @@ func rejectMessage(ch *amqp.Channel, id string, tag uint64, count uint64, max in
 }
 
 type data struct {
-	Consumers       map[string](chan bool)               `json:"consumers"`
-	Messages        map[string](map[uint64](uint64))     `json:"messages"`
+	Consumers       map[string](chan bool)       `json:"consumers"`
+	Messages        map[string]map[uint64]uint64 `json:"messages"`
 }
 
 func ArrayDump(w http.ResponseWriter, password string){
@@ -500,4 +501,17 @@ func checkError(w http.ResponseWriter, err error, fatal bool) bool{
 		return true
 	}
 	return false
+}
+
+func newUUID() (string,error) {
+	b := make([]byte, 16)
+	_, err := rand.Read(b)
+	if err != nil {
+		log.Println(err)
+		return "", err
+	}
+	uuid := fmt.Sprintf("%x-%x-%x-%x-%x",
+		b[0:4], b[4:6], b[6:8], b[8:10], b[10:])
+
+	return uuid, nil
 }

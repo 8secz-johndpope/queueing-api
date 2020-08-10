@@ -5,15 +5,14 @@ import (
 	"encoding/json"
 	"github.com/gorilla/mux"
 	"gitlab.com/projectreferral/queueing-api/client/models"
-	"gitlab.com/projectreferral/util/client/models"
 	"io/ioutil"
 	"log"
 	"net/http"
 )
 
-type HttpReponse func(*http.Response, error)
+type HttpResponse func(*http.Response, error)
 
-type HandleMessage func(qm *models.QueueMessage, err error, qc QueueClient) (sm models.SubscribeMessage, hr HttpReponse)
+type HandleMessage func(qm *models.QueueMessage, err error, qc QueueClient) (sm models.SubscribeMessage, hr HttpResponse)
 
 type QueueClient interface {
 	SetupURL(url string)

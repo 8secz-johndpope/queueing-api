@@ -1,8 +1,8 @@
 package api
 
 import (
-	"net/http"
 	"log"
+	"net/http"
 )
 
 func HandleError(err error, w http.ResponseWriter) bool {

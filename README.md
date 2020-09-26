@@ -4,3 +4,8 @@ This API is responsible for receiving and processing messages from RabbitMQ. It 
 
 Customer Service here subscribes to receive any messages that are sent to a email_confirmation queue. A message arrives, queueing-api will send it to the customer service which will handle it accordingly. 
 
+## High level overview
+
+![High-level Architecture](subscribe_pattern.png)
+
+

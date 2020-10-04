@@ -28,7 +28,7 @@ func SetupEndpoints() {
 	//create queue
 	_router.HandleFunc("/queue", wrapHandlerWithBodyCheck(CreateQueue)).Methods("POST")
 
-	//create echange
+	//create exchange
 	_router.HandleFunc("/exchange", wrapHandlerWithBodyCheck(CreateExchange)).Methods("POST")
 
 	//put bind
@@ -41,10 +41,10 @@ func SetupEndpoints() {
 	_router.HandleFunc("/consume", wrapHandlerWithBodyCheck(ConsumeQueue)).Methods("POST")
 
 	//subscribe queue
-	_router.HandleFunc("/subscribe", wrapHandlerWithBodyCheck(SuscribeQueue)).Methods("POST")
+	_router.HandleFunc("/subscribe", wrapHandlerWithBodyCheck(SubscribeQueue)).Methods("POST")
 
 	//unsubscribe queue
-	_router.HandleFunc("/unsubscribe", wrapHandlerWithBodyCheck(UnSuscribeQueue)).Methods("POST")
+	_router.HandleFunc("/unsubscribe", wrapHandlerWithBodyCheck(UnSubscribeQueue)).Methods("POST")
 
 	//acknowledge message
 	_router.HandleFunc("/acknowledge", wrapHandlerWithBodyCheck(MessageAck)).Methods("POST")

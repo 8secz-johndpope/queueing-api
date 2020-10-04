@@ -15,7 +15,7 @@ type SubscribeMessage interface {
 type QueueDeclare struct {
 	Name             string     `json:"name"`
 	Durable          bool       `json:"durable"`
-	DeleteWhenUnused bool       `json:"deletewhenunused"`
+	DeleteWhenUnused bool       `json:"delete_when_unused"`
 	Exclusive        bool       `json:"exclusive"`
 	NoWait           bool       `json:"nowait"`
 	Arguments        amqp.Table `json:"arguments,omitempty"`
@@ -25,7 +25,7 @@ type ExchangeDeclare struct {
 	Name             string     `json:"name"`
 	Type             string     `json:"type"`
 	Durable          bool       `json:"durable"`
-	DeleteWhenUnused bool       `json:"deletewhenunused"`
+	DeleteWhenUnused bool       `json:"delete_when_unused"`
 	Exclusive        bool       `json:"exclusive"`
 	NoWait           bool       `json:"nowait"`
 	Arguments        amqp.Table `json:"arguments,omitempty"`
@@ -35,7 +35,7 @@ type QueueBind struct {
 	Name             string     `json:"name"`
 	Key              string     `json:"key"`
 	Exchange         string     `json:"exchange"`
-	DeleteWhenUnused bool       `json:"deletewhenunused"`
+	DeleteWhenUnused bool       `json:"delete_when_unused"`
 	Arguments        amqp.Table `json:"arguments,omitempty"`
 }
 
@@ -50,30 +50,30 @@ type ExchangePublish struct {
 type QueueConsume struct {
 	Name             string     `json:"name"`
 	Consumer         string     `json:"consumer"`
-	AutoAck          bool       `json:"autoack"`
+	AutoAck          bool       `json:"auto_ack"`
 	Exclusive        bool       `json:"exclusive"`
-	NoLocal	         bool       `json:"nolocal"`
+	NoLocal	         bool       `json:"no_local"`
 	NoWait           bool       `json:"nowait"`
 	Arguments        amqp.Table `json:"arguments,omitempty"`
 }
 
 //configure how often messages will be delivered
 type QueueQos struct {
-	PrefetchCount    int        `json:"prefetchcount"`
-	PrefetchSize     int        `json:"prefetchsize"`
+	PrefetchCount    int        `json:"prefetch_count"`
+	PrefetchSize     int        `json:"prefetch_size"`
 }
 
 type QueueSubscribe struct {
-	URL              string          `json:"url"`
-	Name             string          `json:"name"`
-	Consumer         string          `json:"consumer"`
-	Exclusive        bool            `json:"exclusive"`
-	NoLocal	         bool            `json:"nolocal"`
-	NoWait           bool            `json:"nowait"`
-	MaxRetry         int             `json:"maxretry"`
-	Timeout          time.Duration   `json:"timeout"`
-	Qos              QueueQos        `json:"qos"`
-	Arguments        amqp.Table      `json:"arguments,omitempty"`
+	URL       string        `json:"url"`
+	Name      string        `json:"name"`
+	Consumer  string        `json:"consumer"`
+	Exclusive bool          `json:"exclusive"`
+	NoLocal   bool          `json:"no_local"`
+	NoWait    bool          `json:"nowait"`
+	MaxRetry  int           `json:"max_retry"`
+	Timeout   time.Duration `json:"timeout"`
+	Qos       QueueQos      `json:"qos"`
+	Arguments amqp.Table    `json:"arguments,omitempty"`
 }
 
 type QueueSubscribeId struct {
@@ -82,31 +82,31 @@ type QueueSubscribeId struct {
 
 type QueueMessage struct {
 	ID               uint64     `json:"id"`
-	RetryCount       uint64     `json:"retrycount"`
+	RetryCount       uint64     `json:"retry_count"`
 	Body           []byte       `json:"body"`
 }
 
 type QueueFailedMessage struct {
 	ID               uint64     `json:"id"`
 	Body           []byte       `json:"body"`
-	RetryCount       uint64     `json:"retrycount"`
+	RetryCount       uint64     `json:"retry_count"`
 	Reason           string     `json:"reason"`
 }
 
 type MessageAcknowledge struct {
-	SubID            QueueSubscribeId  `json:"subID"`
-	ID               uint64            `json:"id"`
-	Body           []byte              `json:"body"`	
-	Acknowledge      bool              `json:"acknowledge"`
-	Requeue          bool              `json:"requeue,omitempty"` //only valid if acknowledge is false
-	Multiple         bool              `json:"multiple"`
+	SubID       QueueSubscribeId `json:"subID"`
+	ID          uint64           `json:"id"`
+	Body        []byte           `json:"body"`
+	Acknowledge bool             `json:"acknowledge"`
+	Requeue     bool             `json:"requeue,omitempty"` //only valid if acknowledge is false
+	Multiple    bool             `json:"multiple"`
 }
 
 type MessageReject struct {
-	SubID            QueueSubscribeId  `json:"subID"`
-	ID               uint64            `json:"id"`
-	Body           []byte              `json:"body"`
-	Requeue          bool              `json:"requeue"`
+	SubID   QueueSubscribeId `json:"subID"`
+	ID      uint64           `json:"id"`
+	Body    []byte           `json:"body"`
+	Requeue bool             `json:"requeue"`
 }
 
 func (ma MessageAcknowledge) GetID() string {

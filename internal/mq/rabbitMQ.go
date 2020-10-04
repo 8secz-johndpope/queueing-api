@@ -1,4 +1,4 @@
-package event_driven
+package mq
 
 import (
 	"bytes"
@@ -6,8 +6,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/streadway/amqp"
-	"gitlab.com/projectreferral/queueing-api/client/models"
 	"gitlab.com/projectreferral/queueing-api/configs"
+	"gitlab.com/projectreferral/queueing-api/models"
 	"log"
 	"net/http"
 	"os"
@@ -22,7 +22,7 @@ var connections  = map[string]*subscriber{}
 
 type subscriber struct {
 	Channel    *amqp.Channel  `json:"channel"`
-	MaxRetry    int           `json:"maxretry"`
+	MaxRetry    int           `json:"max_retry"`
 }
 
 func TestQ(w http.ResponseWriter) bool{
@@ -284,7 +284,7 @@ func subscribeInit(w http.ResponseWriter, msgs <-chan amqp.Delivery, url string,
 	maxRetry int, timeout time.Duration, ch *amqp.Channel, conn *amqp.Connection) {
 		id,err := newUUID()
 		log.Println(id)
-		subscribe := models.QueueSubscribeId {
+		subscribe := models.QueueSubscribeId{
 				ID: id,
 		}
 		if !checkError(w,err,false){
